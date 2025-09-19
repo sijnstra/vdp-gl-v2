@@ -469,8 +469,9 @@ void Terminal::connectSerialPort(HardwareSerial & serialPort, bool autoXONXOFF)
     xTaskCreate(&keyboardReaderTask, "", Terminal::keyboardReaderTaskStackSize, this, FABGLIB_KEYBOARD_READER_TASK_PRIORITY, &m_keyboardReaderTaskHandle);
 
   // just in case a reset occurred after an XOFF
-  if (autoXONXOFF)
-    send(ASCII_XON);
+  //if (autoXONXOFF)
+  //  send(ASCII_XON);
+  m_serialport->flowControl(true);
 }
 #endif
 
