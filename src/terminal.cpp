@@ -461,7 +461,7 @@ void Terminal::connectSerialPort(HardwareSerial & serialPort, bool autoXONXOFF)
   if (m_serialPort)
     vTaskDelete(m_keyboardReaderTaskHandle);
   m_serialPort = &serialPort;
-  m_flowControl = autoXONXOFF ? FlowControl::Software : FlowControl::None;
+  m_flowControl = autoXONXOFF ? FlowControl::Software : FlowControl::Hardware;
 
   m_serialPort->setRxBufferSize(Terminal::inputQueueSize);
 
