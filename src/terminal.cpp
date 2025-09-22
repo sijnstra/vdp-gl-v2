@@ -471,7 +471,7 @@ void Terminal::connectSerialPort(HardwareSerial & serialPort, bool autoXONXOFF)
   // just in case a reset occurred after an XOFF
   // if (autoXONXOFF)
   //   send(ASCII_XON);
-  m_serialport->flowControl(true); // enable RX
+  m_serialPort->flowControl(true); // enable RX
 }
 #endif
 
@@ -1770,14 +1770,14 @@ void Terminal::pollSerialPort()
         // XOFF already sent, need to send XON?
         if (avail < FABGLIB_TERMINAL_XON_THRESHOLD) {
           // send(ASCII_XON);
-          m_serialport->flowControl(true); // enable RX
+          m_serialPort->flowControl(true); // enable RX
           m_sentXOFF = false;
         }
       } else {
         // XOFF not sent, need to send XOFF?
         if (avail >= FABGLIB_TERMINAL_XOFF_THRESHOLD) {
           // send(ASCII_XOFF);
-          m_serialport->flowControl(false);
+          m_serialPort->flowControl(false);
           m_sentXOFF = true;
         }
       }
