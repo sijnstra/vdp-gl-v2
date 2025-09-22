@@ -472,7 +472,9 @@ void Terminal::connectSerialPort(HardwareSerial & serialPort, bool autoXONXOFF)
   // if (autoXONXOFF)
   //   send(ASCII_XON);
   // m_serialPort->flowControl(true); // enable RX
-  
+  // flowControl(true);
+        setRTSStatus(true);            // assert RTS
+    m_sentXOFF = false;
 }
 #endif
 
@@ -1772,7 +1774,8 @@ void Terminal::pollSerialPort()
         if (avail < FABGLIB_TERMINAL_XON_THRESHOLD) {
           // send(ASCII_XON);
           // m_serialPort->flowControl(true); // enable RX
-          flowControl(true); // enable RX
+          //flowControl(true); // enable RX
+          setRTSStatus(true);            // assert RTS
           m_sentXOFF = false;
         }
       } else {
@@ -1780,7 +1783,8 @@ void Terminal::pollSerialPort()
         if (avail >= FABGLIB_TERMINAL_XOFF_THRESHOLD) {
           // send(ASCII_XOFF);
           // m_serialPort->flowControl(false);
-          flowControl(false);
+          //flowControl(false);
+          setRTSStatus(false);            // assert RTS
           m_sentXOFF = true;
         }
       }
